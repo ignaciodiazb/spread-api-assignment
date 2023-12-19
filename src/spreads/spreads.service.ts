@@ -18,6 +18,36 @@ import { catchError, firstValueFrom } from 'rxjs';
 export class SpreadsService {
   constructor(private readonly httpService: HttpService) {}
 
+  async findAll() {
+    const {
+      data: { markets },
+    } = await firstValueFrom(
+      this.httpService.get('https://www.buda.com/api/v2/markets').pipe(
+        catchError((error: AxiosError) => {
+          throw new HttpException(
+            {
+              message: error?.response?.statusText,
+              statusCode: error.response?.status,
+            },
+            error.response?.status,
+          );
+        }),
+      ),
+    );
+
+    const market_ids = markets.map((market) => market.id);
+
+    let market_spreads = [];
+    for (const id of market_ids) {
+      let spread = await this.findOne(id);
+      market_spreads.push(spread);
+    }
+
+    return {
+      spreads: market_spreads,
+    };
+  }
+
   async findOne(market_id: string) {
     const {
       data: { ticker },
