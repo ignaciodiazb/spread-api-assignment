@@ -27,4 +27,10 @@ export class SpreadsController {
   findOne(@Param('market_id') market_id: string): Promise<object> {
     return this.spreadsService.findOne(market_id);
   }
+
+  @Get(':spread_id/status')
+  @Version('1')
+  getStatus(@Param('spread_id') spread_id: string): Promise<object> {
+    return this.spreadsService.getStatus(spread_id);
+  }
 }
