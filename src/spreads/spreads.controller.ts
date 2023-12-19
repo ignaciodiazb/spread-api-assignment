@@ -16,6 +16,12 @@ import { SpreadsService } from './spreads.service';
 export class SpreadsController {
   constructor(private readonly spreadsService: SpreadsService) {}
 
+  @Get()
+  @Version('1')
+  findAll(): Promise<object> {
+    return this.spreadsService.findAll();
+  }
+
   @Get(':market_id')
   @Version('1')
   findOne(@Param('market_id') market_id: string): Promise<object> {
