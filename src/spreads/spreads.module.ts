@@ -3,6 +3,7 @@
  * We must include all third-party libraries that we use in the project
  * and are needed for this feature
  */
+import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 
 /**
@@ -12,7 +13,6 @@ import { Module } from '@nestjs/common';
  */
 
 @Module({
-  controllers: [],
-  providers: [],
+  imports: [HttpModule],
 })
 export class SpreadsModule {}
