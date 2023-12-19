@@ -1,7 +1,15 @@
-export class CreateSpreadAlertDto {
-  id: string;
-  market_id: string;
-  max_bid: [string, string];
-  min_ask: [string, string];
-  spread: number;
-}
+/**
+ * Dependencies
+ * We must include all third-party libraries that we use in the project
+ * and are needed for this feature
+ */
+import { ApiProperty } from '@nestjs/swagger';
+
+/**
+ * Sub-dependencies
+ * We must include all libraries developed within the project
+ * and are needed for this feature
+ */
+import { SpreadBaseDto } from './spread-base.dto';
+
+export class CreateSpreadAlertDto extends SpreadBaseDto {}
