@@ -13,28 +13,41 @@ import { catchError, firstValueFrom } from 'rxjs';
  * We must include all libraries developed within the project
  * and are needed for this feature
  */
+import { CreateSpreadAlertDto } from './dto/create-spread-alert.dto';
+import { Spread } from './interfaces/spread.interface';
 
 @Injectable()
 export class SpreadsService {
   constructor(private readonly httpService: HttpService) {}
 
   // Dummy data simulating spreads stored by the user
-  private readonly storedSpreads = [
+  private readonly storedSpreads: Spread[] = [
     {
-      id: '6581d625779c8a576698319b',
+      id: '1703012178474',
       market_id: 'eth-clp',
       max_bid: ['1850552.32', 'CLP'],
       min_ask: ['1871893.6', 'CLP'],
       spread: 21341.28,
     },
     {
-      id: '6581d6be69a7216a02d91ce1',
+      id: '1703012194692',
       market_id: 'btc-clp',
       max_bid: ['36431928.0', 'CLP'],
       min_ask: ['36432761.47', 'CLP'],
       spread: 833.47,
     },
   ];
+
+  async createAlert(body: CreateSpreadAlertDto) {
+    // Simulate DB insert
+    await new Promise((resolve, reject) => {
+      setTimeout(() => resolve(this.storedSpreads.push(body)), 1000);
+    });
+
+    return {
+      message: 'Spread alert created successfuly',
+    };
+  }
 
   async findAll() {
     const {
@@ -91,6 +104,7 @@ export class SpreadsService {
         ),
     );
     return {
+      id: Date.now().toString(),
       market_id,
       max_bid: ticker?.max_bid,
       min_ask: ticker?.min_ask,
