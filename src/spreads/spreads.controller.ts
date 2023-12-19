@@ -3,18 +3,25 @@
  * We must include all third-party libraries that we use in the project
  * and are needed for this feature
  */
-import { Controller, Get, Param, Version } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Version } from '@nestjs/common';
 
 /**
  * Sub-dependencies
  * We must include all libraries developed within the project
  * and are needed for this feature
  */
+import { CreateSpreadAlertDto } from './dto/create-spread-alert.dto';
 import { SpreadsService } from './spreads.service';
 
 @Controller('spreads')
 export class SpreadsController {
   constructor(private readonly spreadsService: SpreadsService) {}
+
+  @Post('alert')
+  @Version('1')
+  createAlert(@Body() body: CreateSpreadAlertDto): Promise<object> {
+    return this.spreadsService.createAlert(body);
+  }
 
   @Get()
   @Version('1')
