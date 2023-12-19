@@ -11,8 +11,12 @@ import { Module } from '@nestjs/common';
  * We must include all libraries developed within the project
  * and are needed for this feature
  */
+import { SpreadsController } from './spreads.controller';
+import { SpreadsService } from './spreads.service';
 
 @Module({
+  controllers: [SpreadsController],
   imports: [HttpModule],
+  providers: [SpreadsService],
 })
 export class SpreadsModule {}
