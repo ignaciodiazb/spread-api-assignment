@@ -3,7 +3,6 @@
  * We must include all third-party libraries that we use in the project
  * and are needed for this feature
  */
-import { ApiProperty } from '@nestjs/swagger';
 
 /**
  * Sub-dependencies
