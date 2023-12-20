@@ -5,7 +5,7 @@
  */
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { VersioningType } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 
 /**
  * Sub-dependencies
@@ -19,6 +19,9 @@ async function bootstrap() {
 
   // Apply API versioning
   app.enableVersioning({ type: VersioningType.URI });
+
+  // Apply validation pipe
+  app.useGlobalPipes(new ValidationPipe());
 
   // Apply Swagger configuration
   const configSwagger = new DocumentBuilder()
