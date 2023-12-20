@@ -30,5 +30,13 @@ async function bootstrap() {
   SwaggerModule.setup('api-docs', app, documentSwagger);
 
   await app.listen(3000);
+
+  async function closeGracefully(signal: string | number) {
+    await app.close();
+    process.kill(process.pid, signal);
+  }
+
+  process.on('SIGINT', closeGracefully);
+  process.on('SIGTERM', closeGracefully);
 }
 bootstrap();
